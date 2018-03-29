@@ -6,10 +6,10 @@ package com.app.androidkt.mqtt;
 
 public class Constants {
 
-    public static final String MQTT_BROKER_URL = "tcp://iot.eclipse.org:1883";
+    public static final String MQTT_BROKER_URL = "tcp://172.20.10.21:1883";
 
-    public static final String PUBLISH_TOPIC = "androidkt/topic";
+    public static final String PUBLISH_TOPIC = "WKS/SkyEyes/StationUser/Notification";
 
-    public static final String CLIENT_ID = "androidkt";
+    public static final String CLIENT_ID = "android_WKS";
 }
 

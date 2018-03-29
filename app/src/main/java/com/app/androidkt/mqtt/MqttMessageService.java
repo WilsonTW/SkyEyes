@@ -1,5 +1,6 @@
 package com.app.androidkt.mqtt;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -78,7 +79,8 @@ public class MqttMessageService extends Service {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_message_black_24dp)
                         .setContentTitle(topic)
-                        .setContentText(msg);
+                        .setContentText(msg)
+                        .setDefaults(Notification.DEFAULT_SOUND);
         Intent resultIntent = new Intent(this, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);

@@ -10,6 +10,8 @@ public class Constants {
 
     public static final String PUBLISH_TOPIC = "WKS/SkyEyes/StationUser/Notification";
 
+    public static final String PUBLISH_TOPIC_CMD = "WKS/SkyEyes/UAV_AgentService/Receiver";
+
     public static final String CLIENT_ID = "android_WKS";
 }
 

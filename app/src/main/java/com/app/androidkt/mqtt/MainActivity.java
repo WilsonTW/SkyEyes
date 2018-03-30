@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private PahoMqttClient pahoMqttClient;
 
 //    private EditText textMessage, subscribeTopic, unSubscribeTopic;
-    private Button publishMessage, subscribe, unSubscribe;
+    private Button publishMessage;
+    private Button subscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,85 +34,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SettingActivity.class);
             startActivityForResult(intent, RC_LOGIN);
         }
-//        pahoMqttClient = new PahoMqttClient();
-//
-////        textMessage = (EditText) findViewById(R.id.textMessage);
-//        publishMessage = (Button) findViewById(R.id.publishMessage);
-//
-//        subscribe = (Button) findViewById(R.id.subscribe);
-//        unSubscribe = (Button) findViewById(R.id.unSubscribe);
-//
-////        subscribeTopic = (EditText) findViewById(R.id.subscribeTopic);
-////        unSubscribeTopic = (EditText) findViewById(R.id.unSubscribeTopic);
-//        client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
-//
-//        publishMessage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String msg = "{\n" +
-//                        "  \"command\": \"run_mission_plan\",\n" +
-//                        "  \"respond_topic\": \"\",\n" +
-//                        "  \"id\": \"b81bbf30-6828-4d6a-b668-5819ff679df3\",\n" +
-//                        "  \"parameters\": {\n" +
-//                        "    \"uav_name\": \"EMU-101\"\n" +
-//                        "  }\n" +
-//                        "}";
-//
-////                JSONObject jsonObject = new JSONObject(jsonText);
-//
-//                if (!msg.isEmpty()) {
-//                    try {
-//                        pahoMqttClient.publishMessage(client, msg, 1, Constants.PUBLISH_TOPIC_CMD);
-//                    } catch (MqttException e) {
-//                        e.printStackTrace();
-//                    } catch (UnsupportedEncodingException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-////                String msg = textMessage.getText().toString().trim();
-////                if (!msg.isEmpty()) {
-////                    try {
-////                        pahoMqttClient.publishMessage(client, msg, 1, Constants.PUBLISH_TOPIC);
-////                    } catch (MqttException e) {
-////                        e.printStackTrace();
-////                    } catch (UnsupportedEncodingException e) {
-////                        e.printStackTrace();
-////                    }
-////                }
-//            }
-//        });
-//
-//        subscribe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                String topic = subscribeTopic.getText().toString().trim();
-//                String topic = Constants.SUBSCRIBE_TOPIC_CMD;
-//                if (!topic.isEmpty()) {
-//                    try {
-//                        pahoMqttClient.subscribe(client, topic, 1);
-//                    } catch (MqttException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
-//        unSubscribe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                String topic = unSubscribeTopic.getText().toString().trim();
-//                String topic = Constants.SUBSCRIBE_TOPIC_CMD;
-//                if (!topic.isEmpty()) {
-//                    try {
-//                        pahoMqttClient.unSubscribe(client, topic);
-//                    } catch (MqttException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
-//
-//        Intent intent = new Intent(MainActivity.this, MqttMessageService.class);
-//        startService(intent);
+
+        subscribe = (Button) findViewById(R.id.subscribe);
+//        setting = (Button) findViewById(R.id.setting);
     }
 
     @Override
@@ -123,16 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
                 publishMessage = (Button) findViewById(R.id.publishMessage);
 
-                subscribe = (Button) findViewById(R.id.subscribe);
-                unSubscribe = (Button) findViewById(R.id.unSubscribe);
-
-                String MQTT_BROKER_URL = data.getStringExtra("LOGIN_BROKER");
-                String CLIENT_ID = data.getStringExtra("LOGIN_CLIENT");
-                String PUBLISH_TOPIC_CMD = data.getStringExtra("LOGIN_PUB");
-                String SUBSCRIBE_TOPIC_CMD = data.getStringExtra("LOGIN_SUB");
+                final String MQTT_BROKER_URL = data.getStringExtra("LOGIN_BROKER");
+                final String CLIENT_ID = data.getStringExtra("LOGIN_CLIENT");
+                final String PUBLISH_TOPIC_CMD = data.getStringExtra("LOGIN_PUB");
+                final String SUBSCRIBE_TOPIC_CMD = data.getStringExtra("LOGIN_SUB");
                 Log.d("RESULT", MQTT_BROKER_URL + "/" + CLIENT_ID + "/" + PUBLISH_TOPIC_CMD+ "/" + SUBSCRIBE_TOPIC_CMD);
 
-                client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
+//                client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
+                client = pahoMqttClient.getMqttClient(getApplicationContext(), MQTT_BROKER_URL, CLIENT_ID);
 
                 publishMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -148,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (!msg.isEmpty()) {
                             try {
-                                pahoMqttClient.publishMessage(client, msg, 1, Constants.PUBLISH_TOPIC_CMD);
+//                                pahoMqttClient.publishMessage(client, msg, 1, Constants.PUBLISH_TOPIC_CMD);
+                                pahoMqttClient.publishMessage(client, msg, 1, PUBLISH_TOPIC_CMD);
                             } catch (MqttException e) {
                                 e.printStackTrace();
                             } catch (UnsupportedEncodingException e) {
@@ -161,23 +85,11 @@ public class MainActivity extends AppCompatActivity {
                 subscribe.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String topic = Constants.SUBSCRIBE_TOPIC_CMD;
+//                        String topic = Constants.SUBSCRIBE_TOPIC_CMD;
+                        String topic = SUBSCRIBE_TOPIC_CMD;
                         if (!topic.isEmpty()) {
                             try {
                                 pahoMqttClient.subscribe(client, topic, 1);
-                            } catch (MqttException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-                unSubscribe.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String topic = Constants.SUBSCRIBE_TOPIC_CMD;
-                        if (!topic.isEmpty()) {
-                            try {
-                                pahoMqttClient.unSubscribe(client, topic);
                             } catch (MqttException e) {
                                 e.printStackTrace();
                             }
@@ -192,5 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    public void setup(View view){
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 }

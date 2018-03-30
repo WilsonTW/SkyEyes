@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                 "  \"respond_topic\": \"\",\n" +
                                 "  \"id\": \"b81bbf30-6828-4d6a-b668-5819ff679df3\",\n" +
                                 "  \"parameters\": {\n" +
-                                "    \"uav_name\": " + Constants.UAV_NAME +
+                                "    \"uav_name\": \"" +Constants.UAV_NAME+ "\"" +
                                 "  }\n" +
                                 "}";
 

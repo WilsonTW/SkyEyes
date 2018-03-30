@@ -79,7 +79,7 @@ public class MqttMessageService extends Service {
         Constants.UAV_NAME = msg;
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_message_black_24dp)
+                        .setSmallIcon(R.drawable.uav01_alpha)
                         .setContentTitle(topic)
                         .setContentText("UAV_Name:" + msg)
                         .setDefaults(Notification.DEFAULT_SOUND);

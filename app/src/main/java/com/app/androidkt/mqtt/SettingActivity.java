@@ -55,7 +55,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void cancel(View v){
-        Toast.makeText(this, "Cancal", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Cancal", Toast.LENGTH_LONG).show();
         SharedPreferences setting =
                 getSharedPreferences("skyeyes", MODE_PRIVATE);
         getIntent().putExtra("LOGIN_BROKER", setting.getString("PREF_BROKER", ""));

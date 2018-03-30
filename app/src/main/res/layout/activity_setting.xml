@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     tools:context="com.app.androidkt.mqtt.SettingActivity">
 
     <TextView
@@ -85,10 +86,12 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="190dp"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:onClick="update"
         android:text="Update"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
@@ -97,10 +100,12 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="190dp"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:onClick="cancel"
         android:text="Cancel"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

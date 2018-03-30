@@ -60,12 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 publishMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d("UAV_NAME", Constants.UAV_NAME);
                         String msg = "{\n" +
                                 "  \"command\": \"run_mission_plan\",\n" +
                                 "  \"respond_topic\": \"\",\n" +
                                 "  \"id\": \"b81bbf30-6828-4d6a-b668-5819ff679df3\",\n" +
                                 "  \"parameters\": {\n" +
-                                "    \"uav_name\": \"EMU-101\"\n" +
+                                "    \"uav_name\": " + Constants.UAV_NAME +
                                 "  }\n" +
                                 "}";
 

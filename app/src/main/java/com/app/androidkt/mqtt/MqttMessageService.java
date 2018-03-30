@@ -75,6 +75,8 @@ public class MqttMessageService extends Service {
     }
 
     private void setMessageNotification(@NonNull String topic, @NonNull String msg) {
+
+        Constants.UAV_NAME = msg;
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_message_black_24dp)

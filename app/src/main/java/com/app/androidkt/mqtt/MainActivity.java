@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                 publishMessage = (Button) findViewById(R.id.publishMessage);
 
-                final String MQTT_BROKER_URL = data.getStringExtra("LOGIN_BROKER");
+                final String MQTT_BROKER_URL = Constants.HEADING + data.getStringExtra("LOGIN_BROKER") + Constants.PORT;
                 final String CLIENT_ID = data.getStringExtra("LOGIN_CLIENT");
                 final String PUBLISH_TOPIC_CMD = data.getStringExtra("LOGIN_PUB");
                 final String SUBSCRIBE_TOPIC_CMD = data.getStringExtra("LOGIN_SUB");
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-
+//                        v.performClick();
                     }
                 });
 

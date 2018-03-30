@@ -20,10 +20,23 @@ public class SettingActivity extends AppCompatActivity {
 
         SharedPreferences setting =
                 getSharedPreferences("skyeyes", MODE_PRIVATE);
-        edBroker.setText(setting.getString("PREF_BROKER", ""));
-        edClientid.setText(setting.getString("PREF_CLIENT", ""));
-        edPubtopic.setText(setting.getString("PREF_PUB", ""));
-        edSubtopic.setText(setting.getString("PREF_SUB", ""));
+        String tmpBroker = setting.getString("PREF_BROKER", "");
+        String tmpClient = setting.getString("PREF_CLIENT", "");
+        String tmpPub = setting.getString("PREF_PUB", "");
+        String tmpSub = setting.getString("PREF_SUB", "");
+        edBroker.setText(tmpBroker);
+        edClientid.setText(tmpClient);
+        edPubtopic.setText(tmpPub);
+        edSubtopic.setText(tmpSub);
+
+        if (tmpBroker.isEmpty() && tmpClient.isEmpty() && tmpPub.isEmpty() && tmpSub.isEmpty()){
+            setting.edit()
+                    .putString("PREF_BROKER",Constants.MQTT_BROKER_URL)
+                    .putString("PREF_CLIENT", Constants.CLIENT_ID)
+                    .putString("PREF_PUB", Constants.PUBLISH_TOPIC_CMD)
+                    .putString("PREF_SUB", Constants.SUBSCRIBE_TOPIC_CMD)
+                    .apply();
+        }
     }
 
     public void update(View view){

@@ -8,7 +8,11 @@ import android.app.Application;
 
 public class Constants extends Application {
 
-    public static final String MQTT_BROKER_URL = "tcp://172.20.10.21:1883";
+    public static final String MQTT_BROKER_URL = "172.20.10.21";
+
+    public static final String HEADING = "tcp://";
+
+    public static final String PORT = ":1883";
 
 //    public static final String PUBLISH_TOPIC = "WKS/SkyEyes/StationUser/Notification";
 

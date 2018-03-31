@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -109,11 +110,12 @@ public class MainActivity extends AppCompatActivity {
                         if (!topic.isEmpty()) {
                             try {
                                 pahoMqttClient.subscribe(client, topic, 1);
+                                Toast.makeText(MainActivity.this, "System Activated", Toast.LENGTH_LONG).show();
+                                subscribe.setVisibility(View.GONE);
                             } catch (MqttException e) {
                                 e.printStackTrace();
                             }
                         }
-//                        v.performClick();
                     }
                 });
 
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setup(View view) throws MqttException {
         pahoMqttClient.unSubscribe(client, Constants.TMP_SUBSCRIBE_TOPIC_CMD);
+        subscribe.setVisibility(View.VISIBLE);
 
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);

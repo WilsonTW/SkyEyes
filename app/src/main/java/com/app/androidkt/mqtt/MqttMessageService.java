@@ -31,7 +31,7 @@ public class MqttMessageService extends Service {
         super.onCreate();
         Log.d(TAG, "onCreate");
         pahoMqttClient = new PahoMqttClient();
-        mqttAndroidClient = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
+        mqttAndroidClient = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.TMP_MQTT_BROKER_URL, Constants.TMP_CLIENT_ID);
 
         mqttAndroidClient.setCallback(new MqttCallbackExtended() {
             @Override

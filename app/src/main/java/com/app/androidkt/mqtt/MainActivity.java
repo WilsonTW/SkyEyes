@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
                 publishMessage = (Button) findViewById(R.id.publishMessage);
 
-                final String MQTT_BROKER_URL = Constants.HEADING + data.getStringExtra("LOGIN_BROKER") + Constants.PORT;
-                final String CLIENT_ID = data.getStringExtra("LOGIN_CLIENT");
-                final String PUBLISH_TOPIC_CMD = data.getStringExtra("LOGIN_PUB");
-                final String SUBSCRIBE_TOPIC_CMD = data.getStringExtra("LOGIN_SUB");
-                Log.d("RESULT", MQTT_BROKER_URL + "/" + CLIENT_ID + "/" + PUBLISH_TOPIC_CMD+ "/" + SUBSCRIBE_TOPIC_CMD);
+                Constants.TMP_MQTT_BROKER_URL = Constants.HEADING + data.getStringExtra("LOGIN_BROKER") + Constants.PORT;
+                Constants.TMP_CLIENT_ID = data.getStringExtra("LOGIN_CLIENT");
+                Constants.TMP_PUBLISH_TOPIC_CMD = data.getStringExtra("LOGIN_PUB");
+                Constants.TMP_SUBSCRIBE_TOPIC_CMD = data.getStringExtra("LOGIN_SUB");
+                Log.d("RESULT", Constants.TMP_MQTT_BROKER_URL + ":" + Constants.TMP_CLIENT_ID + ":" + Constants.TMP_PUBLISH_TOPIC_CMD+ "/" + Constants.TMP_SUBSCRIBE_TOPIC_CMD);
 
 //                client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
-                client = pahoMqttClient.getMqttClient(getApplicationContext(), MQTT_BROKER_URL, CLIENT_ID);
+                client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.TMP_MQTT_BROKER_URL, Constants.TMP_CLIENT_ID);
 
                 publishMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!msg.isEmpty()) {
                             try {
 //                                pahoMqttClient.publishMessage(client, msg, 1, Constants.PUBLISH_TOPIC_CMD);
-                                pahoMqttClient.publishMessage(client, msg, 1, PUBLISH_TOPIC_CMD);
+                                pahoMqttClient.publishMessage(client, msg, 2, Constants.TMP_PUBLISH_TOPIC_CMD);
                             } catch (MqttException e) {
                                 e.printStackTrace();
                             } catch (UnsupportedEncodingException e) {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                        String topic = Constants.SUBSCRIBE_TOPIC_CMD;
-                        String topic = SUBSCRIBE_TOPIC_CMD;
+                        String topic = Constants.TMP_SUBSCRIBE_TOPIC_CMD;
                         if (!topic.isEmpty()) {
                             try {
                                 pahoMqttClient.subscribe(client, topic, 1);
@@ -109,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setup(View view){
+    public void setup(View view) throws MqttException {
+        pahoMqttClient.unSubscribe(client, Constants.TMP_SUBSCRIBE_TOPIC_CMD);
+
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
     }

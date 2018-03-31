@@ -24,10 +24,6 @@ public class SettingActivity extends AppCompatActivity {
         String tmpClient = setting.getString("PREF_CLIENT", "");
         String tmpPub = setting.getString("PREF_PUB", "");
         String tmpSub = setting.getString("PREF_SUB", "");
-        edBroker.setText(tmpBroker);
-        edClientid.setText(tmpClient);
-        edPubtopic.setText(tmpPub);
-        edSubtopic.setText(tmpSub);
 
         if (tmpBroker.isEmpty() && tmpClient.isEmpty() && tmpPub.isEmpty() && tmpSub.isEmpty()){
             setting.edit()
@@ -36,6 +32,18 @@ public class SettingActivity extends AppCompatActivity {
                     .putString("PREF_PUB", Constants.PUBLISH_TOPIC_CMD)
                     .putString("PREF_SUB", Constants.SUBSCRIBE_TOPIC_CMD)
                     .apply();
+
+            edBroker.setText(setting.getString("PREF_BROKER", ""));
+            edClientid.setText(setting.getString("PREF_CLIENT", ""));
+            edPubtopic.setText(setting.getString("PREF_PUB", ""));
+            edSubtopic.setText(setting.getString("PREF_SUB", ""));
+
+        }else{
+            edBroker.setText(tmpBroker);
+            edClientid.setText(tmpClient);
+            edPubtopic.setText(tmpPub);
+            edSubtopic.setText(tmpSub);
+
         }
     }
 

@@ -22,8 +22,5 @@ public class Constants extends Application {
 
     public static String UAV_NAME = "";
 
-//    public String getUAVName(){
-//        return UAV_NAME;
-//    }
 }
 

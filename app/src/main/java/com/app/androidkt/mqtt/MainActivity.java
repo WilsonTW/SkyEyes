@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
 //                                pahoMqttClient.publishMessage(client, msg, 1, Constants.PUBLISH_TOPIC_CMD);
                                 pahoMqttClient.publishMessage(client, msg, 2, Constants.TMP_PUBLISH_TOPIC_CMD);
+                                Toast.makeText(MainActivity.this, "Launch Successfully", Toast.LENGTH_LONG).show();
                             } catch (MqttException e) {
                                 e.printStackTrace();
                             } catch (UnsupportedEncodingException e) {

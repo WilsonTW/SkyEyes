@@ -81,7 +81,7 @@ public class MqttMessageService extends Service {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.uav01_alpha)
                         .setContentTitle(topic)
-                        .setContentText("UAV_Name:" + msg)
+                        .setContentText("UAV_Name:" + Constants.UAV_NAME)
                         .setDefaults(Notification.DEFAULT_SOUND);
         Intent resultIntent = new Intent(this, MainActivity.class);
 

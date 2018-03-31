@@ -3,6 +3,7 @@ package com.app.androidkt.mqtt;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
@@ -75,7 +76,7 @@ public class PahoMqttClient {
     @NonNull
     private MqttConnectOptions getMqttConnectionOption() {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
-        mqttConnectOptions.setCleanSession(false);
+        mqttConnectOptions.setCleanSession(true);
         mqttConnectOptions.setAutomaticReconnect(true);
         //mqttConnectOptions.setWill(Constants.PUBLISH_TOPIC, "I am going offline".getBytes(), 1, true);
         //mqttConnectOptions.setUserName("ngbllzzy");

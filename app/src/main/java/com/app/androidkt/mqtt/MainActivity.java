@@ -1,8 +1,12 @@
 package com.app.androidkt.mqtt;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
                 client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.TMP_MQTT_BROKER_URL, Constants.TMP_CLIENT_ID);
+                Toast.makeText(MainActivity.this, "Connect Successfully", Toast.LENGTH_LONG).show();
 
                 publishMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(MainActivity.this)
+                                        .setSmallIcon(R.drawable.uav01_alpha)
+                                        .setContentTitle("Launch Successfully")
+                                        .setContentText(Constants.UAV_NAME + " Launch Successfully");
+
+                        NotificationManager mNotificationManager =
+                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager.notify(101, mBuilder.build());
+                        mNotificationManager.cancel(100);
                     }
                 });
 

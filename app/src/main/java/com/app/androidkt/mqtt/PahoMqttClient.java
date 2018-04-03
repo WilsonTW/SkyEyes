@@ -23,6 +23,8 @@ public class PahoMqttClient {
 
     private static final String TAG = "PahoMqttClient";
     private MqttAndroidClient mqttAndroidClient;
+//    private boolean connectFlag = false;
+
 
     public MqttAndroidClient getMqttClient(Context context, String brokerUrl, String clientId) {
 
@@ -34,11 +36,13 @@ public class PahoMqttClient {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     mqttAndroidClient.setBufferOpts(getDisconnectedBufferOptions());
                     Log.d(TAG, "Success");
+//                    connectFlag = true;
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                     Log.d(TAG, "Failure " + exception.toString());
+//                    connectFlag = false;
                 }
             });
         } catch (MqttException e) {
@@ -54,6 +58,7 @@ public class PahoMqttClient {
             @Override
             public void onSuccess(IMqttToken iMqttToken) {
                 Log.d(TAG, "Successfully disconnected");
+//                connectFlag = false;
             }
 
             @Override
@@ -128,6 +133,10 @@ public class PahoMqttClient {
             }
         });
     }
+
+//    public boolean getConnectionState(){
+//        return connectFlag;
+//    }
 
 }
 

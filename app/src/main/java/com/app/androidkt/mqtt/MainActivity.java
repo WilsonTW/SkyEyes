@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         subscribe = (Button) findViewById(R.id.subscribe);
-//        setting = (Button) findViewById(R.id.setting);
     }
 
     @Override
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
 //                client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.MQTT_BROKER_URL, Constants.CLIENT_ID);
                 client = pahoMqttClient.getMqttClient(getApplicationContext(), Constants.TMP_MQTT_BROKER_URL, Constants.TMP_CLIENT_ID);
-                Toast.makeText(MainActivity.this, "Connect Successfully", Toast.LENGTH_LONG).show();
 
                 publishMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -109,9 +107,14 @@ public class MainActivity extends AppCompatActivity {
                         String topic = Constants.TMP_SUBSCRIBE_TOPIC_CMD;
                         if (!topic.isEmpty()) {
                             try {
+
                                 pahoMqttClient.subscribe(client, topic, 1);
-                                Toast.makeText(MainActivity.this, "System Activated", Toast.LENGTH_LONG).show();
-                                subscribe.setVisibility(View.GONE);
+                                if(client.isConnected()){
+                                    Toast.makeText(MainActivity.this, "System Activated", Toast.LENGTH_LONG).show();
+                                    subscribe.setVisibility(View.GONE);
+                                }else{
+                                    Toast.makeText(MainActivity.this, "System Unactivated", Toast.LENGTH_LONG).show();
+                                }
                             } catch (MqttException e) {
                                 e.printStackTrace();
                             }
@@ -129,7 +132,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setup(View view) throws MqttException {
-        pahoMqttClient.unSubscribe(client, Constants.TMP_SUBSCRIBE_TOPIC_CMD);
+        if(client.isConnected()){
+//            Toast.makeText(MainActivity.this, "UnSubscribe", Toast.LENGTH_LONG).show();
+            pahoMqttClient.unSubscribe(client, Constants.TMP_SUBSCRIBE_TOPIC_CMD);
+//            pahoMqttClient.disconnect(client);
+        }else{
+//            Toast.makeText(MainActivity.this, "Do Nothing", Toast.LENGTH_LONG).show();
+        }
+
         subscribe.setVisibility(View.VISIBLE);
 
         Intent intent = new Intent(this, SettingActivity.class);

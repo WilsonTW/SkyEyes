@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
@@ -107,15 +108,22 @@ public class MainActivity extends AppCompatActivity {
                         String topic = Constants.TMP_SUBSCRIBE_TOPIC_CMD;
                         if (!topic.isEmpty()) {
                             try {
-
-                                pahoMqttClient.subscribe(client, topic, 1);
-                                if(client.isConnected()){
+                                Runtime runtime = Runtime.getRuntime();
+                                Process  mIpAddrProcess = runtime.exec("/system/bin/ping -c 1 " + Constants.MQTT_BROKER_URL);
+                                int mExitValue = mIpAddrProcess.waitFor();
+                                Log.d("Ping", String.valueOf(mExitValue));
+                                if(client.isConnected() && mExitValue == 0){
                                     Toast.makeText(MainActivity.this, "System Activated", Toast.LENGTH_LONG).show();
+                                    pahoMqttClient.subscribe(client, topic, 1);
                                     subscribe.setVisibility(View.GONE);
                                 }else{
                                     Toast.makeText(MainActivity.this, "System Unactivated", Toast.LENGTH_LONG).show();
                                 }
                             } catch (MqttException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
